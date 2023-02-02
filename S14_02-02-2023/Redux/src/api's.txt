@@ -1,0 +1,7 @@
+Electronic
+==========
+https://fakestoreapi.com/products/category/electronics
+
+Jewelery
+========
+'https://fakestoreapi.com/products/category/jewelery
