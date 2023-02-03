@@ -1,5 +1,5 @@
-const productAction = (data, dispatch) => {
-  if (data.length === 0) {
+const productAction = (Storedata, dispatch) => {
+  if (Storedata.length === 0) {
     fetch("https://fakestoreapi.com/products")
       .then((res) => res.json())
       .then((data) => {

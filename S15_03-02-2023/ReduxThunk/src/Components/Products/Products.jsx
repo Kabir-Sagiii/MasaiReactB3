@@ -1,0 +1,77 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import productAction from "../../Action/productsAction";
+// import productThunkAction from "../../Action/productsThunkAction";
+import thunkActionCreator from "../../Action/productsThunkAction";
+//"https://fakestoreapi.com/products"
+
+function Products(props) {
+  let productsData = useSelector((store) => {
+    return store.productReducer.products;
+  });
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // productAction(productsData, dispatch);
+    // productThunkAction(); // Not Valid
+    dispatch(thunkActionCreator("https://fakestoreapi.com/products"));
+  }, []);
+
+  return (
+    <div>
+      <h2 style={{ color: "blue" }}>Products Component</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro
+        aspernatur sequi, quae, provident nihil excepturi explicabo neque itaque
+        soluta harum placeat maiores enim iusto voluptates id. Ex deserunt vero
+        perspiciatis minima, laboriosam officia quis atque porro nihil, ut
+        voluptatibus quibusdam incidunt animi asperiores fugit ea molestiae
+        distinctio ab esse! Quo dolor iste, repellat nihil voluptatibus rerum
+        adipisci doloribus quae aliquid eveniet architecto neque enim, est nemo
+        nesciunt assumenda quasi exercitationem illo excepturi fugiat? Tempora
+        possimus soluta pariatur impedit excepturi consequuntur reiciendis
+        libero labore ex voluptates. Iusto, nisi maiores. Vero, assumenda
+        nostrum enim quidem officiis et molestias? Quasi hic eos ipsum!
+      </p>
+
+      {productsData.length > 0 ? (
+        <div
+          style={{
+            margin: "50px",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+          }}
+        >
+          {productsData.map((product) => {
+            return (
+              <div
+                key={product.id}
+                style={{
+                  boxShadow: "0 0 10px black",
+                  padding: "10px",
+                  margin: "10px",
+                }}
+              >
+                <Link to={`/productdetails/${product.id}`}>
+                  <img src={product.image} width="300" height="300" />
+                </Link>
+                <h3>{product.title}</h3>
+                <p>$ {product.price}</p>
+                <Link to={`/productdetails/${product.id}`}>
+                  <button>More Information</button>
+                </Link>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <h2 style={{ color: "red", textAlign: "center", margin: "50px" }}>
+          Data is not Available
+        </h2>
+      )}
+    </div>
+  );
+}
+
+export default Products;
